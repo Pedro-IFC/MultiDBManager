@@ -1,13 +1,14 @@
 package IPrimaryKey;
 
 public class MySQLPrimaryKey extends IPrimaryKey{
-
-	public MySQLPrimaryKey(String name) {
+	
+	public MySQLPrimaryKey(String tb, String name) {
 		super(name);
+		this.setTb(tb);
 	}
 
 	public String toCreateLog() {
-		return "CONSTRAINT "+getName()+" PRIMARY KEY("+getName()+")";
+		return "ALTER TABLE "+this.getTb()+" ADD PRIMARY KEY ("+this.getName()+");";
 	}
 
 }

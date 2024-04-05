@@ -8,13 +8,23 @@ public class MySQLConnection implements IConnection{
 	protected String port ="3306";
 	protected String user ="root";
 	protected String pass ="";
+	protected String db = "";
+	
+	public MySQLConnection(String name) {
+		this.db=name;
+	}
 	public Connection getConnection() {
     	try {
     		Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://"+host+":"+port,user, pass);
+            return DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db,user, pass);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 	}
+	@Override
+	public String toString() {
+		return "jdbc:mysql://"+host+":"+port+"/"+db;
+	}
+	
 }

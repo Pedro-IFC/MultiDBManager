@@ -9,10 +9,18 @@ public abstract class ITable{
 	private String name;
 	private ITableFactory attrFac;
 	private List<String> attrLogs;
+	private List<String> primaryKeyLog;
+	public List<String> getPrimaryKeyLog() {
+		return primaryKeyLog;
+	}
+	public void setPrimaryKeyLog(List<String> primaryKeyLog) {
+		this.primaryKeyLog = primaryKeyLog;
+	}
 	public ITable(String name, ITableFactory attrFac) {
 		this.setName(name);
 		this.setAttrFac(attrFac);
 		this.setAttrLogs(new ArrayList<String>());
+		this.setPrimaryKeyLog(new ArrayList<String>());
 	}
 	public abstract ITable createAttr(String name, String type, int size);
 	public abstract ITable createPrimaryKey(String name);

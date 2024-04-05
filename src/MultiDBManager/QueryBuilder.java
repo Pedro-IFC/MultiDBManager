@@ -21,10 +21,6 @@ public class QueryBuilder {
 	}
 	public void run() throws SQLException {
 		getDbfac().toRun();
-		System.out.println(Logger.getInstance().commit());
-		getDbfac().createConnection()
-		.getConnection()
-		.prepareStatement(Logger.getInstance().commit()).execute();
 	}
 	public DataBaseFactory getDbfac() {
 		return dbfac;

@@ -11,7 +11,7 @@ public abstract class IDatabase {
 		this.setColletion(colletion);
 	}
 	public abstract ITable createTable(String name);
-	public abstract String toCreateLog();
+	public abstract String[] toCreateLog();
 	public String getName() {
 		return name;
 	}

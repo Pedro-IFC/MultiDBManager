@@ -14,8 +14,11 @@ public class MySQLDatabase extends IDatabase{
 		return this.getTable();
 	}
 
-	public String toCreateLog() {
-		return "CREATE DATABASE " + getName() + ";USE "+ getName() + ";" + ( this.getTable()!=null?this.getTable().toCreateLog():"");
+	public String[] toCreateLog() {
+		String[] r = {getName(), ""};
+		if(this.getTable()!=null) {
+			r[1]=this.getTable().toCreateLog();
+		}
+		return r;
 	}
-
 }

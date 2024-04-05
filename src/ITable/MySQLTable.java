@@ -11,7 +11,7 @@ public class MySQLTable extends ITable{
 		return this;
 	}
 	public ITable createPrimaryKey(String name) {
-		this.getAttrLogs().add(getAttrFac().generatePrimaryKey(name).toCreateLog());
+		this.getPrimaryKeyLog().add(getAttrFac().generatePrimaryKey(this.getName(), name).toCreateLog());
 		return this;
 	}
 	public ITable createForeignKey(String name, String tabelaRef, String atributoRef) {
@@ -19,14 +19,22 @@ public class MySQLTable extends ITable{
 		return this;
 	}
 	public String toCreateLog() {
-		String all = "CREATE TABLE "+getName()+ "(";
-		for(int i = 0; i<getAttrLogs().size(); i++) {
-			all+=getAttrLogs().get(i);
-			if(i+1!=getAttrLogs().size()) {
-				all+=",";
+		String all = "";
+		if(getAttrLogs().size()>0) {
+			all+="CREATE TABLE "+getName()+ "(";
+			for(int i = 0; i<getAttrLogs().size(); i++) {
+				all+=getAttrLogs().get(i);
+				if(i+1!=getAttrLogs().size()) {
+					all+=",";
+				}
+			}
+			all+= ");";
+		}
+		if(getPrimaryKeyLog().size()>0) {
+			for(int i = 0; i<getPrimaryKeyLog().size(); i++) {
+				all+=getPrimaryKeyLog().get(i);
 			}
 		}
-		all+= ");";
 		return all;
 	}
 
