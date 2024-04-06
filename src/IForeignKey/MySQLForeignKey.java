@@ -2,11 +2,11 @@ package IForeignKey;
 
 public class MySQLForeignKey extends IForeignKey{
 
-	public MySQLForeignKey(String name, String tableRef, String nameRef) {
-		super(name, tableRef, nameRef);
+	public MySQLForeignKey(String tb, String name, String tableRef, String nameRef) {
+		super(tb, name, tableRef, nameRef);
 	}
 	public String toCreateLog() {
-		return "FOREIGN KEY ("+getName()+") REFERENCES "+getTableRef()+" ("+getNameRef()+")";
+		return "ALTER TABLE "+this.getTb()+" ADD FOREIGN KEY ("+this.getName()+") REFERENCES "+this.getTableRef()+" ("+this.getNameRef()+");";
 	}
 
 }

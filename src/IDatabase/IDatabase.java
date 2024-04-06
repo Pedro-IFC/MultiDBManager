@@ -1,11 +1,13 @@
 package IDatabase;
 
+import java.util.List;
+
 import ITable.ITable;
 
 public abstract class IDatabase {
 	private String name;
 	private String colletion;
-	private ITable Table;
+	private List<ITable> Table;
 	public IDatabase(String name, String colletion) {
 		this.setName(name);
 		this.setColletion(colletion);
@@ -24,10 +26,10 @@ public abstract class IDatabase {
 	public void setColletion(String colletion) {
 		this.colletion = colletion;
 	}
-	public ITable getTable() {
+	public List<ITable> getTable() {
 		return Table;
 	}
-	public void setTable(ITable table) {
+	public void setTable(List<ITable> table) {
 		Table = table;
 	}
 	

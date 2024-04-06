@@ -15,8 +15,8 @@ public class MySQLTableFactory implements ITableFactory {
 		return new MySQLPrimaryKey(tb, name);
 	}
 
-	public IForeignKey generateForeignKey(String name, String tabelaRef, String atributoRef) {
-		return new MySQLForeignKey(name, tabelaRef, atributoRef);
+	public IForeignKey generateForeignKey(String tb, String name, String tabelaRef, String atributoRef) {
+		return new MySQLForeignKey(tb, name, tabelaRef, atributoRef);
 	}
 
 }
