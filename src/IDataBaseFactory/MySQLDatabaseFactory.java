@@ -26,8 +26,6 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 	public void toRun(){
 		for(int i=0; i<getDatabase().size();i++) {
 			String[] args = this.getDatabase().get(i).toCreateLog();
-			boolean pass=true;
-			
 			try {
 				Connection connG = createConnection("").getConnection();
 					Statement p = connG.createStatement();
@@ -40,7 +38,7 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 				System.out.println(args[0] + ".status = erro");
 			}
 
-			if(!args[1].isEmpty() && pass) {
+			if(!args[1].isEmpty()) {
 				try {
 					Connection connE = createConnection(args[0]).getConnection();
 					String[] partes = args[1].split(";");
@@ -50,15 +48,13 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 						p.close();
 					}
 					connE.close(); 
-					
-					System.out.println(args[0] + ".tabelas.status = criado");
+					System.out.println("+->" + args[0] + ".tabelas.status = criado");
 				}catch (SQLException e) {
-					pass=false;
-					System.out.println(args[0] + ".tabelas.status = erro");
+					System.out.println("+->" + args[0] + ".tabelas.status = erro");
 				}
 			}
 			
-			if(!args[2].isEmpty() && pass) {
+			if(!args[2].isEmpty()) {
 				try {
 					Connection connE = createConnection(args[0]).getConnection();
 					String[] partes = args[2].split(";");
@@ -69,11 +65,27 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 					}
 					connE.close(); 
 					
-					System.out.println(args[0] + ".foreignKey.status = criado");
+					System.out.println(" +->" + args[0] + ".foreignKey.status = criado");
 				}catch (SQLException e) {
-					pass=false;
-					System.out.println(args[0] + ".foreignKey.status = erro");
+					System.out.println(" +->" + args[0] + ".foreignKey.status = erro");
 				}
+			}
+		}
+	}
+	public void down() {
+		for(int i=0; i<getDatabase().size();i++) {
+			String name = this.getDatabase().get(i).getName();
+			
+			try {
+				Connection connG = createConnection("").getConnection();
+					Statement p = connG.createStatement();
+						p.executeUpdate("DROP DATABASE " + name);
+					p.close();
+				connG.close();
+				
+				System.out.println(name + ".status = deletado");
+			} catch (SQLException e) {
+				System.out.println(name + ".status = erro");
 			}
 		}
 	}

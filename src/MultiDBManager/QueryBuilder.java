@@ -22,6 +22,9 @@ public class QueryBuilder {
 	public void run() throws SQLException {
 		getDbfac().toRun();
 	}
+	public void delete() throws SQLException {
+		getDbfac().down();
+	}
 	public DataBaseFactory getDbfac() {
 		return dbfac;
 	}

@@ -3,6 +3,9 @@ package ITable;
 import java.util.ArrayList;
 import java.util.List;
 
+import IAttr.IAttr;
+import IForeignKey.IForeignKey;
+import IPrimaryKey.IPrimaryKey;
 import TableFactory.ITableFactory;
 
 public abstract class ITable{
@@ -24,9 +27,9 @@ public abstract class ITable{
 		this.setPrimaryKeyLog(new ArrayList<String>());
 		this.setForeignKeyLog(new ArrayList<String>());
 	}
-	public abstract ITable createAttr(String name, String type, int size);
-	public abstract ITable createPrimaryKey(String name);
-	public abstract ITable createForeignKey(String name, String tabelaRef, String atributoRef);
+	public abstract IAttr createAttr(IAttr attr);
+	public abstract IPrimaryKey createPrimaryKey(IAttr attr);
+	public abstract IForeignKey createForeignKey(IPrimaryKey key, IAttr att);
 	public abstract String[] toCreateLog();
 	public String getName() {
 		return name;

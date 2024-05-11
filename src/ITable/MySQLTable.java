@@ -1,31 +1,45 @@
 package ITable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import IAttr.IAttr;
+import IForeignKey.IForeignKey;
+import IPrimaryKey.IPrimaryKey;
 import TableFactory.MySQLTableFactory;
 
 public class MySQLTable extends ITable{
 	public MySQLTable(String name) {
 		super(name, new MySQLTableFactory());
 	}
-	public ITable createAttr(String name, String type, int size) {
-		this.getAttrLogs().add(this.getAttrFac().generateAttr(name, type, size).toCreateLog());
-		return this;
+	public IAttr createAttr(IAttr attr) {
+		attr.setTb(this.getName());
+		this.getAttrLogs().add(attr.toCreateLog());
+		return attr;
 	}
-	public ITable createPrimaryKey(String name) {
-		this.getPrimaryKeyLog().add(getAttrFac().generatePrimaryKey(this.getName(), name).toCreateLog());
-		return this;
+	public IPrimaryKey createPrimaryKey(IAttr attr) {
+		IPrimaryKey r = getAttrFac().generatePrimaryKey(this.getName(), attr.getName());
+		this.getPrimaryKeyLog().add(r.toCreateLog());
+		return r;
 	}
-	public ITable createForeignKey(String name, String tabelaRef, String atributoRef) {
-		this.getForeignKeyLog().add(getAttrFac().generateForeignKey(this.getName(),name, tabelaRef, atributoRef).toCreateLog());
-		return this;
+	public IForeignKey createForeignKey(IPrimaryKey key, IAttr att) {
+		att = this.createAttr(att);
+		IForeignKey r= getAttrFac().generateForeignKey(att.getTb(), att.getName(), key.getTb(), key.getName());
+		this.getForeignKeyLog().add(r.toCreateLog());
+		return r;
 	}
 	public String[] toCreateLog() {
 		String[] all = {"", ""};
 		if(getAttrLogs().size()>0) {
+			List<String> rep = new ArrayList<String>();
 			all[0]+="CREATE TABLE "+getName()+ "(";
 			for(int i = 0; i<getAttrLogs().size(); i++) {
-				all[0]+=getAttrLogs().get(i);
-				if(i+1!=getAttrLogs().size()) {
-					all[0]+=",";
+				if(!rep.contains(getAttrLogs().get(i))) {
+					all[0]+=getAttrLogs().get(i);
+					if(i+1!=getAttrLogs().size()) {
+						all[0]+=",";
+					}
+					rep.add(getAttrLogs().get(i));
 				}
 			}
 			all[0]+= ");";
