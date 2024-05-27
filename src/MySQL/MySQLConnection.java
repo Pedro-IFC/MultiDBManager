@@ -22,10 +22,9 @@ public class MySQLConnection implements IConnection{
 	}
 	public Connection getConnection() {
     	try {
-    		Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db,user, pass);
         } catch (Exception e) {
-        	System.out.println("Erro ao conectar ao servidor");
+        	System.out.println("Erro ao conectar ao servidor MySQL");
             return null;
         }
 	}

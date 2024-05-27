@@ -37,46 +37,49 @@ public class PostgreDatabaseFactory extends DataBaseFactory{
 			String[] args = this.getDatabase().get(i).toCreateLog();
 			try {
 				Connection connG = createConnection("").getConnection();
+				if(connG!=null) {
 					Statement p = connG.createStatement();
 						p.executeUpdate("CREATE DATABASE " + args[0]);
 					p.close();
-				connG.close();
-				
-				System.out.println(args[0] + ".status = criado");
+					connG.close();
+					System.out.println(args[0] + ".criado = sucess");
+				}
 			} catch (SQLException e) {
-				System.out.println(args[0] + ".status = erro");
+				System.out.println(args[0] + ".criado = error");
 			}
-
 			if(!args[1].isEmpty()) {
 				try {
 					Connection connE = createConnection(args[0]).getConnection();
-					String[] partes = args[1].split(";");
-					for(String parte : partes) {
-						Statement p = connE.createStatement();
-							p.executeUpdate(parte+";");
-						p.close();
+					if(connE!=null) {
+						String[] partes = args[1].split(";");
+						for(String parte : partes) {
+							Statement p = connE.createStatement();
+								p.executeUpdate(parte+";");
+							p.close();
+						}
+						connE.close(); 
+						System.out.println("+->" + args[0] + ".tabelas.criado = sucess");
 					}
-					connE.close(); 
-					System.out.println("+->" + args[0] + ".tabelas.status = criado");
 				}catch (SQLException e) {
-					System.out.println("+->" + args[0] + ".tabelas.status = erro");
+					System.out.println("+->" + args[0] + ".tabelas.criado = error");
 				}
 			}
 			
 			if(!args[2].isEmpty()) {
 				try {
 					Connection connE = createConnection(args[0]).getConnection();
-					String[] partes = args[2].split(";");
-					for(String parte : partes) {
-						Statement p = connE.createStatement();
-							p.executeUpdate(parte+";");
-						p.close();
+					if(connE!=null) {
+						String[] partes = args[2].split(";");
+						for(String parte : partes) {
+							Statement p = connE.createStatement();
+								p.executeUpdate(parte+";");
+							p.close();
+						}
+						connE.close(); 
+						System.out.println(" +->" + args[0] + ".foreignKey.criado = sucess");
 					}
-					connE.close(); 
-					
-					System.out.println(" +->" + args[0] + ".foreignKey.status = criado");
 				}catch (SQLException e) {
-					System.out.println(" +->" + args[0] + ".foreignKey.status = erro");
+					System.out.println(" +->" + args[0] + ".foreignKey.criado = error");
 				}
 			}
 		}
@@ -87,14 +90,15 @@ public class PostgreDatabaseFactory extends DataBaseFactory{
 			
 			try {
 				Connection connG = createConnection("").getConnection();
+				if(connG!=null) {
 					Statement p = connG.createStatement();
 						p.executeUpdate("DROP DATABASE " + name);
 					p.close();
-				connG.close();
-				
-				System.out.println(name + ".status = deletado");
+					connG.close();
+					System.out.println(name + ".deletar = sucess");
+				}
 			} catch (SQLException e) {
-				System.out.println(name + ".status = erro");
+				System.out.println(name + ".deletar = error");
 			}
 		}
 	}

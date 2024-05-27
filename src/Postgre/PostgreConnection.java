@@ -22,16 +22,15 @@ public class PostgreConnection implements IConnection{
 	}
 	public Connection getConnection() {
     	try {
-    		Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db,user, pass);
+            return DriverManager.getConnection("jdbc:postgresql://"+host+":"+port+"/"+db,user, pass);
         } catch (Exception e) {
-        	System.out.println("Erro ao conectar ao servidor");
+        	System.out.println("Erro ao conectar ao servidor Postgree");
             return null;
         }
 	}
 	@Override
 	public String toString() {
-		return "jdbc:mysql://"+host+":"+port+"/"+db;
+		return "jdbc:postgresql://"+host+":"+port+"/"+db;
 	}
 	
 }

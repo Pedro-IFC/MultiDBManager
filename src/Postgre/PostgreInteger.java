@@ -7,9 +7,9 @@ public final class PostgreInteger extends IAttr {
 		return new PostgreInteger(attr);
 	}
 	private PostgreInteger(IAttr attr) {
-		super(attr.getName(), "int", attr.getSize());
+		super(attr.getName(), "INTEGER", attr.getSize());
 	}
 	public String toCreateLog() {
-		return getName()+" "+getType()+"("+getSize()+")";
+		return getName()+" "+getType();
 	}
 }

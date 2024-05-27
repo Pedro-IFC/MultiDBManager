@@ -37,12 +37,14 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 			String[] args = this.getDatabase().get(i).toCreateLog();
 			try {
 				Connection connG = createConnection("").getConnection();
+				if(connG!=null) {
 					Statement p = connG.createStatement();
 						p.executeUpdate("CREATE DATABASE " + args[0]);
 					p.close();
-				connG.close();
-				
-				System.out.println(args[0] + ".status = criado");
+					connG.close();
+					
+					System.out.println(args[0] + ".status = criado");
+				}
 			} catch (SQLException e) {
 				System.out.println(args[0] + ".status = erro");
 			}
@@ -87,12 +89,14 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 			
 			try {
 				Connection connG = createConnection("").getConnection();
+				if(connG!=null) {
 					Statement p = connG.createStatement();
 						p.executeUpdate("DROP DATABASE " + name);
 					p.close();
-				connG.close();
-				
-				System.out.println(name + ".status = deletado");
+					connG.close();
+					
+					System.out.println(name + ".status = deletado");
+				}
 			} catch (SQLException e) {
 				System.out.println(name + ".status = erro");
 			}
