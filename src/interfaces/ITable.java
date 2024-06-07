@@ -22,10 +22,6 @@ public abstract class ITable{
 		this.setPrimaryKeyLog(new ArrayList<String>());
 		this.setForeignKeyLog(new ArrayList<String>());
 	}
-	public abstract IAttr createAttr(IAttr attr);
-	public abstract IPrimaryKey createPrimaryKey(IAttr attr);
-	public abstract IForeignKey createForeignKey(IPrimaryKey key, IAttr att);
-	public abstract String[] toCreateLog();
 	public String getName() {
 		return name;
 	}
@@ -51,4 +47,8 @@ public abstract class ITable{
 	public void setAttrLogs(List<String> attrLogs) {
 		this.attrLogs = attrLogs;
 	}
+	public abstract IAttr createAttr(IAttr attr);
+	public abstract IPrimaryKey createPrimaryKey(IAttr attr);
+	public abstract IForeignKey createForeignKey(IPrimaryKey key, IAttr att);
+	public abstract String[] toCreateLog();
 }

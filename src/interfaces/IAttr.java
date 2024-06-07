@@ -26,7 +26,6 @@ public abstract class IAttr {
 	public void setTb(String tb) {
 		this.tb = tb;
 	}
-	@Override
 	public String toString() {
 		return "IAttr [name=" + name + ", type=" + type + ", size=" + size + ", tb=" + tb + "]";
 	}

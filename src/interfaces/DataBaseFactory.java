@@ -11,7 +11,7 @@ public abstract class DataBaseFactory {
 	public abstract IConnection createConnection(String DB);
 	public abstract void toRun();
 	public abstract void down();
-	public  List<IDatabase> getDatabase() {
+	public List<IDatabase> getDatabase() {
 		return database;
 	}
 	public void setDatabase(List<IDatabase> database) {

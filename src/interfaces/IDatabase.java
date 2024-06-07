@@ -10,8 +10,6 @@ public abstract class IDatabase {
 		this.setName(name);
 		this.setColletion(colletion);
 	}
-	public abstract ITable createTable(String name);
-	public abstract String[] toCreateLog();
 	public String getName() {
 		return name;
 	}
@@ -30,5 +28,7 @@ public abstract class IDatabase {
 	public void setTable(List<ITable> table) {
 		Table = table;
 	}
+	public abstract ITable createTable(String name);
+	public abstract String[] toCreateLog();
 	
 }

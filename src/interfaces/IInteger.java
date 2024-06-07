@@ -1,6 +1,6 @@
 package interfaces;
 
-public final class IInteger extends IAttr {
+public class IInteger extends IAttr {
 	public static IInteger create(String name, int size) {
 		return new IInteger(name, size);
 	}
@@ -8,6 +8,6 @@ public final class IInteger extends IAttr {
 		super(name, "int", size);
 	}
 	public String toCreateLog() {
-		return null;
+		return "IAttr [name=" + getName() + ", type=" + getType() + ", size=" + getSize() + ", tb=" + getTb() + "]";
 	}
 }

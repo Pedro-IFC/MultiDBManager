@@ -6,7 +6,6 @@ public abstract class IPrimaryKey {
 	public IPrimaryKey(String name) {
 		this.name=name;
 	}
-	public abstract String toCreateLog();
 	public String getName() {
 		return name;
 	}
@@ -19,5 +18,5 @@ public abstract class IPrimaryKey {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public abstract String toCreateLog();
 }

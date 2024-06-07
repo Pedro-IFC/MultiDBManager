@@ -11,7 +11,6 @@ public abstract class IForeignKey {
 		this.nameRef=nameRef;
 		this.tb=tb;
 	}
-	public abstract String toCreateLog();
 	public String getName() {
 		return name;
 	}
@@ -36,5 +35,6 @@ public abstract class IForeignKey {
 	public void setNameRef(String nameRef) {
 		this.nameRef = nameRef;
 	}
+	public abstract String toCreateLog();
 	
 }

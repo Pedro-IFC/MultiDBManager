@@ -38,14 +38,7 @@ public class Main {
 		mysqlC.delete();
 		mysqlC.run();
 		System.out.println(mysqlC.getString());
-		System.out.println("========================");
-		System.out.println("Mysq: ");
-		MySQLQueryBuilder mysqlC2 = new MySQLQueryBuilder("localhost", "3306", "root", "");
-		DataBaseFactory sqlS2 = mysqlC2.initQuery();
-		IDatabase db2 = sqlS2.createDatabase("teste02", "");
-		db2.createTable("tabela - teste");
-		mysqlC2.delete();
-		mysqlC2.run();
+
 	}
 
 }
