@@ -22,13 +22,12 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 		this.user = user;
 		this.pass = pass;
 	}
-	public IDatabase createDatabase(String name, String colletion) {
+	public IDatabase createDatabase(String name, String colletion, String character) {
 		List<IDatabase> m = this.getDatabase()==null? new ArrayList<IDatabase>() : this.getDatabase();
-		m.add(new MySQLDatabase(name, colletion));
+		m.add(new MySQLDatabase(name, colletion, character));
 		this.setDatabase(m);
 		return m.get(m.size()-1);
 	}
-
 	public IConnection createConnection(String name) {
 		return new MySQLConnection(host, port, user, pass, name);
 	}
@@ -39,7 +38,7 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 				Connection connG = createConnection("").getConnection();
 				if(connG!=null) {
 					Statement p = connG.createStatement();
-						p.executeUpdate("CREATE DATABASE " + args[0]);
+						p.executeUpdate("CREATE DATABASE " + args[0] + " CHARACTER SET " + args[4] + " COLLATE " + args[3]);
 					p.close();
 					connG.close();
 					
@@ -106,7 +105,7 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 		String R="";
 		for(int i=0; i<getDatabase().size();i++) {
 			String[] args = this.getDatabase().get(i).toCreateLog();
-			R+="CREATE DATABASE " + args[0]+"\n";
+			R+="CREATE DATABASE " + args[0] + " CHARACTER SET " + args[4] + " COLLATE " + args[3] + "\n";
 			if(!args[1].isEmpty()) {
 				String[] partes = args[1].split(";");
 				for(String parte : partes) {

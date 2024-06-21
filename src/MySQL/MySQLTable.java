@@ -14,7 +14,8 @@ public class MySQLTable extends ITable{
 	}
 	public IAttr createAttr(IAttr attr) {
 		attr.setTb(this.getName());
-		this.getAttrLogs().add(MysqlInteger.create(attr).toCreateLog());
+		MySQLAttr nAttr = new MySQLAttr(attr);
+		this.getAttrLogs().add(nAttr.toCreateLog());
 		return attr;
 	}
 	public IPrimaryKey createPrimaryKey(IAttr attr) {

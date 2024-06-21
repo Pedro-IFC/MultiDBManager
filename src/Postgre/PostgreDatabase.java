@@ -7,8 +7,8 @@ import interfaces.ITable;
 
 public class PostgreDatabase extends IDatabase{
 
-	public PostgreDatabase(String name, String colletion) {
-		super(name, colletion);
+	public PostgreDatabase(String name, String colletion, String character) {
+		super(name, colletion, character);
 	}
 
 	public ITable createTable(String name) {

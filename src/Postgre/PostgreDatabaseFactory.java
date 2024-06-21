@@ -22,9 +22,9 @@ public class PostgreDatabaseFactory extends DataBaseFactory{
 		this.user = user;
 		this.pass = pass;
 	}
-	public IDatabase createDatabase(String name, String colletion) {
+	public IDatabase createDatabase(String name, String colletion, String character) {
 		List<IDatabase> m = this.getDatabase()==null? new ArrayList<IDatabase>() : this.getDatabase();
-		m.add(new PostgreDatabase(name, colletion));
+		m.add(new PostgreDatabase(name, colletion, character));
 		this.setDatabase(m);
 		return m.get(m.size()-1);
 	}

@@ -7,7 +7,7 @@ public abstract class DataBaseFactory {
 	public DataBaseFactory(String host, String port, String user, String pass) {
 		
 	}
-	public abstract IDatabase createDatabase(String name, String colletion);
+	public abstract IDatabase createDatabase(String name, String colletion, String character);
 	public abstract IConnection createConnection(String DB);
 	public abstract void toRun();
 	public abstract void down();

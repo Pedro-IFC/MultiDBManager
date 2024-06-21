@@ -7,8 +7,8 @@ import interfaces.ITable;
 
 public class MySQLDatabase extends IDatabase{
 
-	public MySQLDatabase(String name, String colletion) {
-		super(name, colletion);
+	public MySQLDatabase(String name, String colletion, String character) {
+		super(name, colletion, character);
 	}
 
 	public ITable createTable(String name) {
@@ -20,7 +20,7 @@ public class MySQLDatabase extends IDatabase{
 	}
 
 	public String[] toCreateLog() {
-		String[] r = {getName(), "", ""};
+		String[] r = {getName(), "", "", getColletion(), getCharacter()};
 		if(this.getTable()!=null) {
 			for(int i = 0; i<getTable().size();i++) {
 				r[1]+=this.getTable().get(i).toCreateLog()[0];
