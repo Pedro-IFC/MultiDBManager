@@ -20,6 +20,7 @@ public class Main {
 		DataBaseFactory sqlS = mysqlC.initQuery();
 		
 		IDatabase db = sqlS.createDatabase("alunos", "latin1_swedish_ci", "latin1");
+		
 		ITable alunos = db.createTable("alunos");
 		IAttr idAluno = alunos.createAttr(IInteger.create("IdAluno", 8));
 		alunos.createAttr(Varchar.create("Nome", 60));
