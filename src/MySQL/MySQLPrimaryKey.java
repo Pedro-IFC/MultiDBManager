@@ -8,7 +8,6 @@ public class MySQLPrimaryKey extends IPrimaryKey{
 		super(name);
 		this.setTb(tb);
 	}
-
 	public String toCreateLog() {
 		return "ALTER TABLE "+this.getTb()+" ADD PRIMARY KEY ("+this.getName()+");";
 	}

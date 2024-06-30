@@ -18,13 +18,30 @@ public class MySQLTable extends ITable{
 		this.getAttrLogs().add(nAttr.toCreateLog());
 		return attr;
 	}
+	public IAttr createAttr(String name) {
+		IAttr attr = new IAttr(name, null, 0);
+		attr.setTb(this.getName());
+		MySQLAttr nAttr = new MySQLAttr(attr);
+		this.getAttrLogs().add(nAttr.toCreateLog());
+		return attr;
+	}
 	public IPrimaryKey createPrimaryKey(IAttr attr) {
 		IPrimaryKey r = getAttrFac().generatePrimaryKey(this.getName(), attr.getName());
 		this.getPrimaryKeyLog().add(r.toCreateLog());
 		return r;
 	}
+	public IAttr createAttrFk(IAttr attr) {
+		attr.setAutoincrement(false);
+		attr.setDefaultProp(false);
+		attr.setNotnull(false);
+		attr.setUnique(false);
+		attr.setTb(this.getName());
+		MySQLAttr nAttr = new MySQLAttr(attr);
+		this.getAttrLogs().add(nAttr.toCreateLog());
+		return attr;
+	}
 	public IForeignKey createForeignKey(IPrimaryKey key, IAttr att) {
-		att = this.createAttr(att);
+		att = this.createAttrFk(att);
 		IForeignKey r= getAttrFac().generateForeignKey(att.getTb(), att.getName(), key.getTb(), key.getName());
 		this.getForeignKeyLog().add(r.toCreateLog());
 		return r;
@@ -56,6 +73,10 @@ public class MySQLTable extends ITable{
 			}
 		}
 		return all;
+	}
+	public IAttr createIndex(IAttr attr) {
+		this.getIndexLog().add("CREATE INDEX idx_"+attr.getName()+" ON "+attr.getTb()+"("+attr.getName()+");");
+		return attr;
 	}
 
 }

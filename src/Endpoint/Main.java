@@ -4,13 +4,10 @@ import java.sql.SQLException;
 
 import MySQL.MySQLQueryBuilder;
 import interfaces.DataBaseFactory;
-import interfaces.Date;
 import interfaces.IAttr;
 import interfaces.IDatabase;
-import interfaces.IInteger;
 import interfaces.IPrimaryKey;
 import interfaces.ITable;
-import interfaces.Varchar;
 
 public class Main {
 	public static void main(String[] args) throws SQLException {
@@ -22,20 +19,20 @@ public class Main {
 		IDatabase db = sqlS.createDatabase("alunos", "latin1_swedish_ci", "latin1");
 		
 		ITable alunos = db.createTable("alunos");
-		IAttr idAluno = alunos.createAttr(IInteger.create("IdAluno", 8));
-		alunos.createAttr(Varchar.create("Nome", 60));
-		alunos.createAttr(Varchar.create("Sobrenome", 60));
-		alunos.createAttr(Date.create("DataDeNascimento"));
+		IAttr idAluno = alunos.createAttr("IdAluno").integer(8).autoincrement();
+		alunos.createAttr("Nome").varchar(60);
+		alunos.createAttr("Sobrenome").varchar(60);
+		alunos.createAttr("DataDeNascimento").date();
 		IPrimaryKey PKAluno = alunos.createPrimaryKey(idAluno);
 		
 		ITable aulas = db.createTable("aulas");
-		IAttr idAula = aulas.createAttr(IInteger.create("IdAula", 8));
-		aulas.createAttr(Varchar.create("Nome", 60));
-		aulas.createAttr(Varchar.create("Descrição", 255));
+		IAttr idAula = aulas.createAttr("IdAula").integer(8).autoincrement();
+		aulas.createAttr("Nome").varchar(60);
+		aulas.createAttr("Descrição").varchar(60);
 		IPrimaryKey PKAula = aulas.createPrimaryKey(idAula);
 		
 		ITable matriculas = db.createTable("matriculas");
-		matriculas.createAttr(IInteger.create("IdMatricula", 8));
+		matriculas.createAttr("IdMatricula").integer(8).autoincrement();
 		matriculas.createForeignKey(PKAula, idAula);
 		matriculas.createForeignKey(PKAluno, idAluno);
 		
