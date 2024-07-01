@@ -36,20 +36,19 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 			String[] args = this.getDatabase().get(i).toCreateLog();
 			try {
 				Connection connG = createConnection("").getConnection();
-				if(connG!=null) {
-					Statement p = connG.createStatement();
-						p.executeUpdate("CREATE DATABASE " + args[0] + " IF NOT EXISTS "+ args[0] +" CHARACTER SET " + args[4] + " COLLATE " + args[3] + ";");
-					p.close();
-					connG.close();
-					
-					System.out.println(args[0] + ".status = criado");
-				}
+				Statement p = connG.createStatement();
+					p.executeUpdate("CREATE DATABASE IF NOT EXISTS "+ args[0] +" CHARACTER SET " + args[4] + " COLLATE " + args[3] + ";");
+				p.close();
+				connG.close();
+				
+				System.out.println(args[0] + ".status = criado");
+			
 			} catch (SQLException e) {
 				System.out.println(args[0] + ".status = erro");
 			}
-
 			if(!args[1].isEmpty()) {
 				try {
+					System.out.println(args[0]);
 					Connection connE = createConnection(args[0]).getConnection();
 					String[] partes = args[1].split(";");
 					for(String parte : partes) {
@@ -86,7 +85,7 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 		for(int i=0; i<getDatabase().size();i++) {
 			String name = this.getDatabase().get(i).getName();
 			try {
-				Connection connG = createConnection(name).getConnection();
+				Connection connG = createConnection("").getConnection();
 				if(connG!=null) {
 					Statement p = connG.createStatement();
 						p.executeUpdate("DROP DATABASE " + name);
