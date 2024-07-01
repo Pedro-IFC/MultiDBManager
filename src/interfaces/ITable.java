@@ -6,10 +6,10 @@ import java.util.List;
 public abstract class ITable{
 	private String name;
 	private ITableFactory attrFac;
-	private List<IAttr> attrs;
-	private List<IPrimaryKey> primarykeys;
-	private List<IForeignKey> foreignkeys;
-	private List<String> indexLog;
+	protected List<IAttr> attrs;
+	protected List<IPrimaryKey> primarykeys;
+	protected List<IForeignKey> foreignkeys;
+	protected List<String> indexLog;
 	public List<String> getPrimaryKeyLog() {
 		List<String> primaryKeyLog = new ArrayList<>();
 		for(int i=0; i<this.primarykeys.size();i++) {

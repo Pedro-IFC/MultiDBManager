@@ -12,37 +12,56 @@ public class MySQLTable extends ITable{
 	public MySQLTable(String name) {
 		super(name, new MySQLTableFactory());
 	}
+	public List<String> getPrimaryKeyLog() {
+		List<String> primaryKeyLog = new ArrayList<>();
+		for(int i=0; i<this.primarykeys.size();i++) {
+			primaryKeyLog.add(this.primarykeys.get(i).toCreateLog());
+		}
+		return primaryKeyLog;
+	}
+	public List<String> getForeignKeyLog() { 
+		List<String> foreignKeyLog = new ArrayList<>();
+		for(int i=0; i<this.foreignkeys.size();i++) {
+			foreignKeyLog.add(this.foreignkeys.get(i).toCreateLog());
+		}
+		return foreignKeyLog;
+	}
+	public List<String> getAttrLogs() {
+		List<String> attrLogs = new ArrayList<>();
+		for(int i=0; i<this.attrs.size();i++) {
+			MySQLAttr nAttr = new MySQLAttr(this.attrs.get(i));
+			attrLogs.add(nAttr.toCreateLog());
+		}
+		return attrLogs;
+	}
 	public IAttr createAttr(IAttr attr) {
-		attr.setTb(this.getName());
-		MySQLAttr nAttr = new MySQLAttr(attr);
-		this.getAttrLogs().add(nAttr.toCreateLog());
+		attr.setTb(this);
+		this.getAttrs().add(attr);
 		return attr;
 	}
 	public IAttr createAttr(String name) {
 		IAttr attr = new IAttr(name, null, 0);
-		attr.setTb(this.getName());
-		MySQLAttr nAttr = new MySQLAttr(attr);
-		this.getAttrs().add(nAttr);
-		return nAttr;
+		attr.setTb(this);
+		this.getAttrs().add(attr);
+		return attr;
 	}
 	public IPrimaryKey createPrimaryKey(IAttr attr) {
-		IPrimaryKey r = getAttrFac().generatePrimaryKey(this.getName(), attr.getName());
+		IPrimaryKey r = getAttrFac().generatePrimaryKey(this.getName(), attr.getName(), attr.getType());
 		this.getPrimarykeys().add(r);
 		return r;
 	}
 	public IAttr createAttrFk(IAttr attr) {
-		attr.setAutoincrement(false);
-		attr.setDefaultProp(false);
-		attr.setNotnull(false);
-		attr.setUnique(false);
-		attr.setTb(this.getName());
 		MySQLAttr nAttr = new MySQLAttr(attr);
+		nAttr.setDefaultProp(false);
+		nAttr.setNotnull(false);
+		nAttr.setUnique(false);
+		nAttr.setTb(this);
 		this.getAttrs().add(nAttr);
 		return attr;
 	}
 	public IForeignKey createForeignKey(IPrimaryKey key, IAttr att) {
 		att = this.createAttrFk(att);
-		IForeignKey r= getAttrFac().generateForeignKey(att.getTb(), att.getName(), key.getTb(), key.getName());
+		IForeignKey r= getAttrFac().generateForeignKey(att.getTb().getName(), att.getName(), key.getTb(), key.getName());
 		this.getForeignkeys().add(r);
 		return r;
 	}

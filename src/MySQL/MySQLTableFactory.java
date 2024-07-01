@@ -9,8 +9,8 @@ public class MySQLTableFactory implements ITableFactory {
 	public IAttr generateAttr(String name, String type, int size) {
 		return new MySQLAttr(name, type, size);
 	}
-	public IPrimaryKey generatePrimaryKey(String tb, String name) {
-		return new MySQLPrimaryKey(tb, name);
+	public IPrimaryKey generatePrimaryKey(String tb, String name, String type) {
+		return new MySQLPrimaryKey(tb, name, type);
 	}
 
 	public IForeignKey generateForeignKey(String tb, String name, String tabelaRef, String atributoRef) {

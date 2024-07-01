@@ -8,22 +8,21 @@ public class MySQLAttr extends IAttr implements InterfaceAttr{
 		super(name, type, size);
 	}
 	public MySQLAttr(IAttr attr) {
-		super(attr.getName(),
+		super(
+			attr.getName(),
 			attr.getType(),
 			attr.getSize(),
 			attr.getTb(),
 			attr.isUnique(),
 			attr.isNotnull(),
 			attr.isDefaultProp(),
-			attr.getDefaultvalue(),
-			attr.isAutoincrement()
+			attr.getDefaultvalue()
 		);
 	}
 	public String toCreateLog() {
 		return  getName()+" "+
 			getType()+(getSize()>0?"("+getSize()+")":"") +
-			(isAutoincrement()?" AUTO_INCREMENT  ":"")+
-			(isUnique()?" UNIQUE ":"")+
+			(isUnique()?" UNIQUE ":"") +
 			(isNotnull()?" NOT NULL ":"")+
 			(isDefaultProp()?" DEFAULT '"+getDefaultvalue()+"'":"")
 		;

@@ -41,10 +41,10 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 				p.close();
 				connG.close();
 				
-				System.out.println(args[0] + ".status = criado");
+				System.out.println(args[0] + ".create = sucesso");
 			
 			} catch (SQLException e) {
-				System.out.println(args[0] + ".status = erro");
+				System.out.println(args[0] + ".create = erro");
 			}
 			if(!args[1].isEmpty()) {
 				try {
@@ -57,9 +57,9 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 						p.close();
 					}
 					connE.close(); 
-					System.out.println("+->" + args[0] + ".tabelas.status = criado");
+					System.out.println("+->" + args[0] + ".tabelas.create = sucesso");
 				}catch (SQLException e) {
-					System.out.println("+->" + args[0] + ".tabelas.status = erro");
+					System.out.println("+->" + args[0] + ".tabelas.create = erro");
 				}
 			}
 			
@@ -74,9 +74,9 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 					}
 					connE.close(); 
 					
-					System.out.println(" +->" + args[0] + ".foreignKey.status = criado");
+					System.out.println(" +->" + args[0] + ".foreignKey.create = sucesso");
 				}catch (SQLException e) {
-					System.out.println(" +->" + args[0] + ".foreignKey.status = erro");
+					System.out.println(" +->" + args[0] + ".foreignKey.create = erro");
 				}
 			}
 		}
@@ -92,10 +92,10 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 					p.close();
 					connG.close();
 					
-					System.out.println(name + ".status = deletado");
+					System.out.println(name + ".delete = sucesso");
 				}
 			} catch (SQLException e) {
-				System.out.println(name + ".status = erro");
+				System.out.println(name + ".delete = erro");
 			}
 		}
 	}

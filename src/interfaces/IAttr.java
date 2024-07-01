@@ -4,12 +4,11 @@ public class IAttr {
 	private String name;
 	private String type;
 	private int size;
-	private String tb;
+	private ITable tb;
 	private boolean unique=false;
 	private boolean notnull=false;
 	private boolean defaultProp=false;
 	private String defaultvalue;
-	private boolean autoincrement=false;
 	public String toCreateLog() {
 		return null;
 	}
@@ -26,16 +25,12 @@ public class IAttr {
 		this.defaultvalue=defaultprop;
 		return this;
 	}
-	public IAttr autoincrement() {
-		this.autoincrement=this.getType().equals("int");
-		return this;
-	}
 	public IAttr(String name, String type, int size) {
 		this.name=name;
 		this.type=type==null?"int":type;
 		this.size=size;
 	}
-	public IAttr(String name, String type, int size, String tb, boolean unique, boolean notnull,boolean defaultProp,String defaultvalue, boolean autoincrement) {
+	public IAttr(String name, String type, int size, ITable tb, boolean unique, boolean notnull,boolean defaultProp,String defaultvalue) {
 		this.name=name;
 		this.type=type==null?"int":type;
 		this.size=size;
@@ -44,7 +39,6 @@ public class IAttr {
 		this.notnull=notnull;
 		this.defaultProp = defaultProp;
 		this.defaultvalue = defaultvalue;
-		this.autoincrement = autoincrement;
 	}
 	public String getName() {
 		return name;
@@ -55,10 +49,10 @@ public class IAttr {
 	public int getSize() {
 		return size;
 	}
-	public String getTb() {
+	public ITable getTb() {
 		return tb;
 	}
-	public void setTb(String tb) {
+	public void setTb(ITable tb) {
 		this.tb = tb;
 	}
 	public boolean isUnique() {
@@ -85,12 +79,6 @@ public class IAttr {
 	public void setDefaultvalue(String defaultvalue) {
 		this.defaultvalue = defaultvalue;
 	}
-	public boolean isAutoincrement() {
-		return autoincrement;
-	}
-	public void setAutoincrement(boolean autoincrement) {
-		this.autoincrement = autoincrement;
-	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -106,16 +94,19 @@ public class IAttr {
 	public IAttr integer(int size) {
 		this.type="int";
 		this.size=size;
+		
 		return this;
 	}
 	public IAttr varchar(int size) {
 		this.type="varchar";
 		this.size=size;
+		
 		return this;
 	}
 	public IAttr date() {
 		this.type="DATE";
 		this.size=0;
+		
 		return this;
 	}
 }

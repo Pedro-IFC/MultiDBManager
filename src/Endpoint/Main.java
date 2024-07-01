@@ -19,20 +19,20 @@ public class Main {
 		IDatabase db = sqlS.createDatabase("alunos", "latin1_swedish_ci", "latin1");
 		
 		ITable alunos = db.createTable("alunos");
-		IAttr idAluno = alunos.createAttr("IdAluno").integer(8).autoincrement();
-		alunos.createAttr("Nome").varchar(60);
+		IAttr idAluno = alunos.createAttr("IdAluno").integer(8);
+		alunos.createAttr("Nome").varchar(60).unique();
 		alunos.createAttr("Sobrenome").varchar(60);
 		alunos.createAttr("DataDeNascimento").date();
-		IPrimaryKey PKAluno = alunos.createPrimaryKey(idAluno);
+		IPrimaryKey PKAluno = alunos.createPrimaryKey(idAluno).autoincrement();
 		
 		ITable aulas = db.createTable("aulas");
-		IAttr idAula = aulas.createAttr("IdAula").integer(8).autoincrement();
+		IAttr idAula = aulas.createAttr("IdAula").integer(8);
 		aulas.createAttr("Nome").varchar(60);
 		aulas.createAttr("Descrição").varchar(60);
-		IPrimaryKey PKAula = aulas.createPrimaryKey(idAula);
+		IPrimaryKey PKAula = aulas.createPrimaryKey(idAula).autoincrement();
 		
 		ITable matriculas = db.createTable("matriculas");
-		matriculas.createAttr("IdMatricula").integer(8).autoincrement();
+		matriculas.createAttr("IdMatricula").integer(8);
 		matriculas.createForeignKey(PKAula, idAula);
 		matriculas.createForeignKey(PKAluno, idAluno);
 		
@@ -40,7 +40,6 @@ public class Main {
 		mysqlC.run();
 		
 		System.out.println(mysqlC.getString());
-		
 	}
 
 }
