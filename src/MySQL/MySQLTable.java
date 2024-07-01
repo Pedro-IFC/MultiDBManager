@@ -22,12 +22,12 @@ public class MySQLTable extends ITable{
 		IAttr attr = new IAttr(name, null, 0);
 		attr.setTb(this.getName());
 		MySQLAttr nAttr = new MySQLAttr(attr);
-		this.getAttrLogs().add(nAttr.toCreateLog());
-		return attr;
+		this.getAttrs().add(nAttr);
+		return nAttr;
 	}
 	public IPrimaryKey createPrimaryKey(IAttr attr) {
 		IPrimaryKey r = getAttrFac().generatePrimaryKey(this.getName(), attr.getName());
-		this.getPrimaryKeyLog().add(r.toCreateLog());
+		this.getPrimarykeys().add(r);
 		return r;
 	}
 	public IAttr createAttrFk(IAttr attr) {
@@ -37,13 +37,13 @@ public class MySQLTable extends ITable{
 		attr.setUnique(false);
 		attr.setTb(this.getName());
 		MySQLAttr nAttr = new MySQLAttr(attr);
-		this.getAttrLogs().add(nAttr.toCreateLog());
+		this.getAttrs().add(nAttr);
 		return attr;
 	}
 	public IForeignKey createForeignKey(IPrimaryKey key, IAttr att) {
 		att = this.createAttrFk(att);
 		IForeignKey r= getAttrFac().generateForeignKey(att.getTb(), att.getName(), key.getTb(), key.getName());
-		this.getForeignKeyLog().add(r.toCreateLog());
+		this.getForeignkeys().add(r);
 		return r;
 	}
 	public String[] toCreateLog() {

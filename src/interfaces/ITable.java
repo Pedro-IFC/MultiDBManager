@@ -6,22 +6,37 @@ import java.util.List;
 public abstract class ITable{
 	private String name;
 	private ITableFactory attrFac;
-	private List<String> attrLogs;
-	private List<String> primaryKeyLog;
-	private List<String> foreignKeyLog;
+	private List<IAttr> attrs;
+	private List<IPrimaryKey> primarykeys;
+	private List<IForeignKey> foreignkeys;
 	private List<String> indexLog;
 	public List<String> getPrimaryKeyLog() {
+		List<String> primaryKeyLog = new ArrayList<>();
+		for(int i=0; i<this.primarykeys.size();i++) {
+			primaryKeyLog.add(this.primarykeys.get(i).toCreateLog());
+		}
 		return primaryKeyLog;
 	}
-	public void setPrimaryKeyLog(List<String> primaryKeyLog) {
-		this.primaryKeyLog = primaryKeyLog;
+	public List<String> getForeignKeyLog() { 
+		List<String> foreignKeyLog = new ArrayList<>();
+		for(int i=0; i<this.foreignkeys.size();i++) {
+			foreignKeyLog.add(this.foreignkeys.get(i).toCreateLog());
+		}
+		return foreignKeyLog;
+	}
+	public List<String> getAttrLogs() {
+		List<String> attrLogs = new ArrayList<>();
+		for(int i=0; i<this.attrs.size();i++) {
+			attrLogs.add(this.attrs.get(i).toCreateLog());
+		}
+		return attrLogs;
 	}
 	public ITable(String name, ITableFactory attrFac) {
 		this.setName(name);
 		this.setAttrFac(attrFac);
-		this.setAttrLogs(new ArrayList<String>());
-		this.setPrimaryKeyLog(new ArrayList<String>());
-		this.setForeignKeyLog(new ArrayList<String>());
+		this.setAttrs(new ArrayList<IAttr>());
+		this.setPrimarykeys(new ArrayList<IPrimaryKey>());
+		this.setForeignkeys(new ArrayList<IForeignKey>());
 		this.setIndexLog(new ArrayList<String>());
 	}
 	public String getName() {
@@ -33,12 +48,6 @@ public abstract class ITable{
 	public void setIndexLog(List<String> indexLog) {
 		this.indexLog = indexLog;
 	}
-	public List<String> getForeignKeyLog() { 
-		return foreignKeyLog; 
-	}
-	public void setForeignKeyLog(List<String> foreignKeyLog) {
-		this.foreignKeyLog = foreignKeyLog;
-	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -48,13 +57,24 @@ public abstract class ITable{
 	public void setAttrFac(ITableFactory attrFac) {
 		this.attrFac = attrFac;
 	}
-	public List<String> getAttrLogs() {
-		return attrLogs;
+	public List<IAttr> getAttrs() {
+		return attrs;
 	}
-	public void setAttrLogs(List<String> attrLogs) {
-		this.attrLogs = attrLogs;
+	public void setAttrs(List<IAttr> attrs) {
+		this.attrs = attrs;
 	}
-	public abstract IAttr createAttr(IAttr attr);
+	public List<IPrimaryKey> getPrimarykeys() {
+		return primarykeys;
+	}
+	public void setPrimarykeys(List<IPrimaryKey> primarykeys) {
+		this.primarykeys = primarykeys;
+	}
+	public List<IForeignKey> getForeignkeys() {
+		return foreignkeys;
+	}
+	public void setForeignkeys(List<IForeignKey> foreignkeys) {
+		this.foreignkeys = foreignkeys;
+	}
 	public abstract IAttr createAttr(String name);
 	public abstract IPrimaryKey createPrimaryKey(IAttr attr);
 	public abstract IAttr createIndex(IAttr attr);

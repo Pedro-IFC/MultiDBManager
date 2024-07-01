@@ -10,6 +10,9 @@ public class IAttr {
 	private boolean defaultProp=false;
 	private String defaultvalue;
 	private boolean autoincrement=false;
+	public String toCreateLog() {
+		return null;
+	}
 	public IAttr unique() {
 		this.unique=true;
 		return this;
@@ -26,9 +29,6 @@ public class IAttr {
 	public IAttr autoincrement() {
 		this.autoincrement=this.getType().equals("int");
 		return this;
-	}
-	public static IAttr create(String nome) {
-		return new IAttr(nome, null, 0);
 	}
 	public IAttr(String name, String type, int size) {
 		this.name=name;
@@ -114,8 +114,8 @@ public class IAttr {
 		return this;
 	}
 	public IAttr date() {
-		this.type="int";
-		this.size=-1;
+		this.type="DATE";
+		this.size=0;
 		return this;
 	}
 }

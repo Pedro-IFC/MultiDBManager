@@ -38,7 +38,7 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 				Connection connG = createConnection("").getConnection();
 				if(connG!=null) {
 					Statement p = connG.createStatement();
-						p.executeUpdate("CREATE DATABASE " + args[0] + " CHARACTER SET " + args[4] + " COLLATE " + args[3]);
+						p.executeUpdate("CREATE DATABASE " + args[0] + " IF NOT EXISTS "+ args[0] +" CHARACTER SET " + args[4] + " COLLATE " + args[3] + ";");
 					p.close();
 					connG.close();
 					
@@ -85,9 +85,8 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 	public void down() {
 		for(int i=0; i<getDatabase().size();i++) {
 			String name = this.getDatabase().get(i).getName();
-			
 			try {
-				Connection connG = createConnection("").getConnection();
+				Connection connG = createConnection(name).getConnection();
 				if(connG!=null) {
 					Statement p = connG.createStatement();
 						p.executeUpdate("DROP DATABASE " + name);
@@ -105,7 +104,7 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 		String R="";
 		for(int i=0; i<getDatabase().size();i++) {
 			String[] args = this.getDatabase().get(i).toCreateLog();
-			R+="CREATE DATABASE " + args[0] + " CHARACTER SET " + args[4] + " COLLATE " + args[3] + "\n";
+			R+="CREATE DATABASE " + args[0] + " IF NOT EXISTS "+ args[0] +" CHARACTER SET " + args[4] + " COLLATE " + args[3] + ";\n";
 			if(!args[1].isEmpty()) {
 				String[] partes = args[1].split(";");
 				for(String parte : partes) {
