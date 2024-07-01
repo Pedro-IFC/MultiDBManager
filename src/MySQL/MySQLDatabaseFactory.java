@@ -104,7 +104,7 @@ public class MySQLDatabaseFactory extends DataBaseFactory{
 		String R="";
 		for(int i=0; i<getDatabase().size();i++) {
 			String[] args = this.getDatabase().get(i).toCreateLog();
-			R+="CREATE DATABASE " + args[0] + " IF NOT EXISTS "+ args[0] +" CHARACTER SET " + args[4] + " COLLATE " + args[3] + ";\n";
+			R+="CREATE DATABASE IF NOT EXISTS "+ args[0] +" CHARACTER SET " + args[4] + " COLLATE " + args[3] + ";\n";
 			if(!args[1].isEmpty()) {
 				String[] partes = args[1].split(";");
 				for(String parte : partes) {
