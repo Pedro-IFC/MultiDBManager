@@ -21,6 +21,7 @@ public class MySQLAttr extends IAttr implements InterfaceAttr{
 	}
 	public String toCreateLog() {
 		return  getName()+" "+
+			getType()+(getSize()>0?"("+getSize()+")":"") + 
 			(isUnique()?" UNIQUE ":"")+
 			(isNotnull()?" NOT NULL ":"")+
 			(isDefaultProp()?" DEFAULT '"+getDefaultvalue()+"'":"")

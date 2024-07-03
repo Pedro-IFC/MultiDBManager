@@ -57,6 +57,7 @@ public class MySQLTable extends ITable{
 		nAttr.setUnique(false);
 		nAttr.setTb(this);
 		this.getAttrs().add(nAttr);
+		attr.setTb(this);
 		return attr;
 	}
 	public IForeignKey createForeignKey(IPrimaryKey key, IAttr att) {
