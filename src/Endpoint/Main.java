@@ -2,7 +2,7 @@ package Endpoint;
 
 import java.sql.SQLException;
 
-import MySQL.MySQLQueryBuilder;
+import Postgre.PostgreQueryBuilder;
 import interfaces.DataBaseFactory;
 import interfaces.IAttr;
 import interfaces.IDatabase;
@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) throws SQLException {
 		System.out.println("========================");
 		System.out.println("MySQL: ");
-		MySQLQueryBuilder mysqlC = new MySQLQueryBuilder("localhost", "3306", "root", "");
+		PostgreQueryBuilder mysqlC = new PostgreQueryBuilder("localhost", "5432", "postgres", "131508");
 		DataBaseFactory sqlS = mysqlC.initQuery();
 		
 		IDatabase db = sqlS.createDatabase("alunos", "latin1_swedish_ci", "latin1");
@@ -35,11 +35,11 @@ public class Main {
 		matriculas.createAttr("IdMatricula").integer(8);
 		matriculas.createForeignKey(PKAula, idAula);
 		matriculas.createForeignKey(PKAluno, idAluno);
-		
+
+		System.out.println(mysqlC.getString());
 		mysqlC.delete();
 		mysqlC.run();
 		
-		System.out.println(mysqlC.getString());
 	}
 
 }
